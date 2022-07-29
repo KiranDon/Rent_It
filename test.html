@@ -9,7 +9,7 @@
     <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --> 
     <title>Rent It</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public/css/allProducts.css">
 </head>
 <body>
     <!-- nav bar starts here -->
@@ -31,185 +31,195 @@
     </nav>
     <!-- nav bar ends here -->
 
-    <!-- hero section starts here-->
-
-    <div class="hero">
-        <div class="left">
-            <div>
-                <h2>Need it?</h2>
-                <h1>Don't buy it. Just <span id="special">Rent It.</span></h1>
-            </div>
-            <button id="heroButton">Get Started.</button>
-            
-        </div>
-        <div class="right">
-            <img src="public/images/heroBg.png" alt="Hero bg">
-        </div>
-    </div>
-
-    <!-- hero section starts here-->
-
-    <!-- features -->
-
-    <div class="features">
-        <div>
-            <h2 class="center">Features</h2>
-        </div>
-        <div class="featureBoxes">
-            <div class="featureCard">
-                <img src="public/images/features/f2.png" alt="" class="featureImage">
-                <p class="featureText">Save Time</p>
-            </div>
-            <div class="featureCard">
-                <img src="public/images/features/f3.png" alt="" class="featureImage">
-                <p class="featureText">Save Money</p>
-            </div>
-            <div class="featureCard">
-                <img src="public/images/features/f4.png" alt="" class="featureImage">
-                <p class="featureText">Hazzle Free</p>
-            </div>
-            <div class="featureCard">
-                <img src="public/images/features/f5.png" alt="" class="featureImage">
-                <p class="featureText">Happy Customers</p>
-            </div>
-            <div class="featureCard">
-                <img src="public/images/features/f6.png" alt="" class="featureImage">
-                <p class="featureText">24/7 Support</p>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- features -->
-
-    <!-- timeline -->
-
-    <div class="container">
-        <h2 class="center">Process Involved</h2>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="main-timeline">
-                    <a href="#" class="timeline">
-                        <div class="timeline-icon"><i class="fa-solid fa-user"></i></div>
-                        <div class="timeline-content">
-                            <h3 class="title">Login / Register</h3>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                            </p>
+    <!-- all products -->
+    <div class="products">
+        <h1 class="center">All Available Products</h1>
+        <div class="productBoxes">
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/f6.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Kiran</p>
+                        <p class="productName">Advanced casio</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹100</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
                         </div>
-                    </a>
-                    <a href="#" class="timeline">
-                        <div class="timeline-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                        <div class="timeline-content">
-                            <h3 class="title">Search for a product</h3>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                            </p>
-                        </div>
-                    </a>
-                    <a href="#" class="timeline">
-                        <div class="timeline-icon"><i class="fa-solid fa-location-dot"></i></div>
-                        <div class="timeline-content">
-                            <h3 class="title">Select pick up and dropping point</h3>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                            </p>
-                        </div>
-                    </a>
-                    <a href="#" class="timeline">
-                        <div class="timeline-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
-                        <div class="timeline-content">
-                            <h3 class="title">Make payment</h3>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                            </p>
-                        </div>
-                    </a>
-                    <a href="#" class="timeline">
-                        <div class="timeline-icon"><i class="fa-solid fa-handshake-simple"></i></div>
-                        <div class="timeline-content">
-                            <h3 class="title">Meet and exchange product</h3>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                            </p>
-                        </div>
-                    </a>
-                    <a href="#" class="timeline">
-                        <div class="timeline-icon"><i class="fa-solid fa-rotate-left"></i></div>
-                        <div class="timeline-content">
-                            <h3 class="title">Return</h3>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                            </p>
-                        </div>
-                    </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- timeline -->
-
-    <!-- news letter -->
-
-    <div class="newsLetter">
-        <div class="left">
-            <h2 id="title">Sign up for news letters.</h2>
-            <p id="para">Get instant updates to your mail whenever <span>new products are added</span>.</p>
-        </div>
-        <div class="right">
-            <form action="">
-                <input type="text" placeholder="example@gmail.com">
-                <button>Sign Up</button>
-            </form>
-
-        </div>
-    </div>
-    <!-- news letter -->
-
-    <!-- footer starts here -->
-    <footer>
-        <div class="footerBoxes">
-            <div class="one">
-                <h1>Rent It</h1>
-                <h4>Contact</h4>
-                
-                <p><span>Address: </span> IIIT Srikakulam, I1 Block.</p>
-                <p><span>Phone: </span> +91 9898989898</p>
-                <p><span>Hours: </span> 10:00 Am to 5:00 Pm - Mon to Fri</p>
-                
-            </div>
-            <div class="two">
-                <h4>About</h4>
-    
-                <p>About Us</p>
-                <p>Privacy Policy</p>
-                <p>Terms and Conditions</p>
-                <p>Contact Us</p>
-            </div>
-            <div class="three">
-                <h4>My Account</h4>
-        
-                <p>Sign In</p>
-                <p>View Cart</p>
-                <p>My Wishlist</p>
-                <p>Help</p>
-            </div>
-            <div class="four">
-                <h4>Install App</h4>
-        
-                <p>From Apple store or Play store</p>
-                <div>
-                    <img src="public/images/img/pay/app.jpg" alt="">
-                    <img src="public/images/img/pay/play.jpg" alt="">
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/f2.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Tharun</p>
+                        <p class="productName">Drafter</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹80</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/f3.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Mouli</p>
+                        <p class="productName">C in depth</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹10</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/f4.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Teja</p>
+                        <p class="productName">Kellte</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹50</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/f5.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Kiran</p>
+                        <p class="productName">Advanced casio</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹100</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/f1.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Kiran</p>
+                        <p class="productName">Advanced casio</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹100</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/f7.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Kiran</p>
+                        <p class="productName">Advanced casio</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹100</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/f8.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Kiran</p>
+                        <p class="productName">Advanced casio</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹100</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/n1.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Kiran</p>
+                        <p class="productName">Advanced casio</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹100</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="top">
+                    <img src="public/images/img/products/n2.jpg" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <p class="owner">Kiran</p>
+                        <p class="productName">Advanced casio</p>
+                        <p class="stars">⭐⭐⭐⭐⭐</p>
+                        <p class="price"><span>₹100</span> per day.</p>
+                    </div>
+                    <div class="right">
+                        <div class="cartButton">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <p id="copyWrite">Copyright &copy; IIIT SKLM - Rent It - 2022</p>
+        </div>
         
-    </footer>
-    <!-- footer ends here -->
+    </div>
+    <!-- all products -->
 
 
 
