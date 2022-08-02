@@ -72,7 +72,15 @@ body{
 .hero .left div h2{
     color: #3a9a95;
 }
-#heroButton{
+
+.btns{
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    /* border: 1px solid black; */
+}
+.heroButton{
+    width: 150px;
     padding: 10px 30px;
     border-radius: 20px;
     cursor: pointer;
@@ -86,7 +94,7 @@ body{
     font-family: 'poppins';
     transition: all 0.3s;
 }
-#heroButton:hover{
+.heroButton:hover{
     transform: scale(1.1);
 }
 

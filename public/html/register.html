@@ -49,15 +49,15 @@
       
                         <div class="form-outline">
                           <input type="text" id="firstName" name="firstName" class="form-control form-control-lg" autocomplete="off" required/>
-                          <label class="form-label" for="firstName">First Name</label>
+                          <label class="form-label" for="firstName">Full Name</label>
                         </div>
       
                       </div>
                       <div class="col-md-6 mb-4">
       
                         <div class="form-outline">
-                          <input type="text" id="lastName" name="lastName" class="form-control form-control-lg" required/>
-                          <label class="form-label" for="lastName">Last Name</label>
+                          <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg"  required/>
+                          <label class="form-label" for="phoneNumber">Phone Number</label>
                         </div>
       
                       </div>
@@ -65,19 +65,22 @@
       
                     <div class="row">
                         <div class="col-md-6 mb-4 pb-2">
-      
-                            <div class="form-outline">
-                              <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg"  required/>
-                              <label class="form-label" for="phoneNumber">Phone Number</label>
-                            </div>
+
+                          <div class="form-outline">
+                            <input type="email" id="emailAddress" name="emailAddress" class="form-control form-control-lg"  required/>
+                            <label class="form-label" for="emailAddress">Email</label>
+                          </div>
+                            
           
                           </div>
-                          <div class="col-md-6 mb-4 pb-2">
+                          <div class="col-md-6 mb-4">
       
-                            <div class="form-outline">
-                              <input type="email" id="emailAddress" name="emailAddress" class="form-control form-control-lg"  required/>
-                              <label class="form-label" for="emailAddress">Email</label>
+                            <!-- <h6 class="mb-2 pb-1">ID Number: </h6> -->
+          
+                            <div class="form-check form-check-inline">
+                              <input type="text" id="id" name="id" class="form-control form-control-lg"  required>
                             </div>
+                            <label class="form-label" for="ProfileImage">College ID Number</label>
           
                           </div>
                       
@@ -87,38 +90,17 @@
                     <div class="row">
                         <div class="col-md-6 mb-4">
       
-                            <h6 class="mb-2 pb-1">Gender: </h6>
-          
-                            <div class="form-check form-check-inline">
-                              <input
-                                class="genderInput"
-                                type="radio"
-                                name="gender"
-                                id="female"
-                                value="Female"
-                                
-                              />
-                              <label class="form-check-label" for="femaleGender">Female</label>
-                            </div>
-          
-                            <div class="form-check form-check-inline">
-                              <input
-                                class="genderInput"
-                                type="radio"
-                                name="gender"
-                                id="male"
-                                value="Male"
-                                checked
-                              />
-                              <label class="form-check-label" for="maleGender">Male</label>
-                            </div>
+                          <div class="form-outline">
+                            <input type="file" id="IdCardImage" name="IdCardImage" class="form-control form-control-lg"  required/>
+                            <label class="form-label" for="ProfileImage">ID Card Image</label>
+                          </div>
           
                           </div>
                       <div class="col-md-6 mb-4 pb-2">
       
                         <div class="form-outline">
                           <input type="file" id="ProfileImage" name="ProfileImage" class="form-control form-control-lg"  required/>
-                          <label class="form-label" for="ProfileImage">Profile Image</label>
+                          <label class="form-label" for="ProfileImage">Profile Picture</label>
                         </div>
       
                       </div>
