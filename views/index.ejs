@@ -1,34 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/55ea4909ec.js" crossorigin="anonymous"></script>
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --> 
-    <title>Rent It</title>
-    <link rel="stylesheet" href="public/css/style.css">
-</head>
-<body>
-    <!-- nav bar starts here -->
-    <nav class="navbar">
-        <div class="left">
-            <!-- <img src="" alt="Logo"> -->
-            <h1>Rent It</h1>
-        </div>
-        <div class="right">
-            <ul class="nav">
-                <li class="navItem"><a href="index.html">Home</a></li>
-                <li class="navItem"><a href="public/html/allProducts.html">Products</a></li>
-                <li class="navItem"><a href="public/html/about.html">About</a></li>
-                <li class="navItem"><a href="public/html/contact.html">Contact</a></li>
-                <!-- <li class="navItem"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li> -->
-            </ul>
-        </div>
-    </nav>
-    <!-- nav bar ends here -->
+<%- include("partials/header"); -%>
 
     <!-- hero section starts here-->
 
@@ -39,13 +9,13 @@
                 <h1>Don't buy it. Just <span id="special">Rent It.</span></h1>
             </div>
             <div class="btns">
-                <a href="/public/html/login.html"><button class="heroButton">Login.</button></a>
-                <a href="/public/html/register.html"><button class="heroButton">Register.</button></a>
+                <a href="login"><button class="heroButton">Login.</button></a>
+                <a href="register"><button class="heroButton">Register.</button></a>
             </div>
             
         </div>
         <div class="right">
-            <img src="public/images/heroBg.png" alt="Hero bg">
+            <img src="/images/heroBg.png" alt="Hero bg">
         </div>
     </div>
 
@@ -59,23 +29,23 @@
         </div>
         <div class="featureBoxes">
             <div class="featureCard">
-                <img src="public/images/features/f2.png" alt="" class="featureImage">
+                <img src="/images/features/f2.png" alt="" class="featureImage">
                 <p class="featureText">Save Time</p>
             </div>
             <div class="featureCard">
-                <img src="public/images/features/f3.png" alt="" class="featureImage">
+                <img src="/images/features/f3.png" alt="" class="featureImage">
                 <p class="featureText">Save Money</p>
             </div>
             <div class="featureCard">
-                <img src="public/images/features/f4.png" alt="" class="featureImage">
+                <img src="/images/features/f4.png" alt="" class="featureImage">
                 <p class="featureText">Hazzle Free</p>
             </div>
             <div class="featureCard">
-                <img src="public/images/features/f5.png" alt="" class="featureImage">
+                <img src="/images/features/f5.png" alt="" class="featureImage">
                 <p class="featureText">Happy Customers</p>
             </div>
             <div class="featureCard">
-                <img src="public/images/features/f6.png" alt="" class="featureImage">
+                <img src="/images/features/f6.png" alt="" class="featureImage">
                 <p class="featureText">24/7 Support</p>
             </div>
         </div>
@@ -86,7 +56,7 @@
 
     <!-- timeline -->
 
-    <div class="container">
+    <div class="container" style="background-color: #E4E6F4;">
         <h2 class="center">Process Involved</h2>
         <div class="row">
             <div class="col-md-12">
@@ -202,8 +172,8 @@
         
                 <p>From Apple store or Play store</p>
                 <div>
-                    <img src="public/images/img/pay/app.jpg" alt="">
-                    <img src="public/images/img/pay/play.jpg" alt="">
+                    <img src="/images/img/pay/app.jpg" alt="">
+                    <img src="/images/img/pay/play.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -212,9 +182,6 @@
         
     </footer>
     <!-- footer ends here -->
-
-
-
     
 </body>
 </html>

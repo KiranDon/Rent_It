@@ -10,7 +10,7 @@
 
 body{
     font-family: 'Poppins', sans-serif; 
-    background-color: #E4E6F4;
+    /* background-color: #E4E6F4; */
     height: 100vh;
 }
 
@@ -23,6 +23,7 @@ body{
     padding: 20px 100px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     position: fixed;
+    top: 0;
     z-index: 100;
 }
 .navbar .right .nav{
@@ -48,6 +49,7 @@ body{
     height: 100vh;
     display: flex;
     font-family: 'Lato', sans-serif;
+    background-color: #E4E6F4;
 }
 .hero .left, .hero .right{
     width: 50%;
@@ -132,8 +134,7 @@ body{
 /* timeline css */
 
 .container{
-    padding: 0 80px 80px 80px;
-    
+    padding: 20px 80px 80px 80px;
 }
 .container a{
     cursor: default;
@@ -261,7 +262,7 @@ a{text-decoration:none}
 footer{
     width: 100%;
     padding: 80px 100px 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 footer .footerBoxes{
     display: flex;
