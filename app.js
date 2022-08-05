@@ -32,6 +32,9 @@ app.get("/product", function(req, res){
 app.get("/checkOut", function(req, res){
     res.render("checkOut");
 })
+app.get("/addProduct", function(req, res){
+    res.render("addProduct");
+})
 
 app.listen(3333, function(){
     console.log("server started at http://localhost:3333");
