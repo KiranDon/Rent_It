@@ -35,6 +35,12 @@ app.get("/checkOut", function(req, res){
 app.get("/addProduct", function(req, res){
     res.render("addProduct");
 })
+app.get("/myProducts", function(req, res){
+    res.render("myProducts");
+})
+app.get("/myProfile", function(req, res){
+    res.render("myProfile");
+})
 
 app.listen(3333, function(){
     console.log("server started at http://localhost:3333");
