@@ -5,11 +5,12 @@ const app = express();
 const mongoose = require("mongoose");
 const fs = require('fs');
 const path = require('path');
-const multer = require('multer');
+const multer  = require('multer')
+// const upload = multer({ dest: '../uploads/' })
 // const findOrCreate = require('mongoose-findorcreate');
 
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
@@ -76,31 +77,33 @@ const userSchema = new mongoose.Schema({
     collegeId: String,
     password: String,
     confirmPassword: String,
-    idImage: String,
     profileImage: String,
-    // idImage:{
-    //     data: Buffer,
-    //     contentType: String
-    // },
-    // profileImage:{
-    //     data: Buffer,
-    //     contentType: String
-    // },
+    idImage: String,
+    profileImage:String
 
 });
 
 const User = new mongoose.model("User", userSchema);
 
-let storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, __dirname+'uploads')
-    },
+// let storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, __dirname+'uploads')
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now())
+//     }
+// });
+const Storage = new multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads')
+      },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+        // cb(null, file.fieldname + '-' + Date.now())
+        cb(null, Date.now()+ path.extnane(file.originalname))
     }
 });
   
-let upload = multer({ storage: storage });
+const upload = multer({ storage: Storage, limits: {fieldSize: 1024 * 1024 * 2} });
 
 
 // Step 8 - the POST handler for processing the uploaded file
@@ -108,32 +111,65 @@ let upload = multer({ storage: storage });
 //     console.log("Requesttttttt..")
 //     console.log(req.body);
 // })
-app.post('/register', upload.array('image'), (req, res, next) => {
+app.post('/register', upload.single('idImage'), async (req, res) => {
 
-    console.log(req.file)
-    console.log(req.files)
+    // console.log(req.file)
+    console.log(req.body)
+    if(req.file){
+        console.log(req.body)
+        const user = new User({
+            fullName: req.body.fullName,
+            phoneNumber: req.body.phoneNumber,
+            email: req.body.emailAddress,
+            collegeId: req.body.collegeId,
+            password: req.body.password,
+            confirmPassword: req.body.confirmPassword,
+            idImage: req.body.IdCardImage,
+            profileImage: req.body.ProfileImage,
+            idImage:`/uploads/${req.body.IdCardImage}`
+        })
+        user.save()
+        .then(()=>console.log("Uploaded successfully..."))
+        .catch(err=>console.log("Failed...."));
 
-    const user = new User({
-        fullName: req.body.fullName,
-        phoneNumber: req.body.phoneNumber,
-        email: req.body.emailAddress,
-        collegeId: req.body.collegeId,
-        password: req.body.password,
-        confirmPassword: req.body.confirmPassword,
-        idImage: req.body.IdCardImage,
-        profileImage: req.body.ProfileImage,
-        // idImage:{
-        //     // data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.body.IdCardImage)),
-        //     data: fs.readFileSync(`${__dirname}\\uploads\\${req.body.IdCardImage}`),
-		// 	contentType: 'image/png'
-        // },
-        // profileImage:{
-        //     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.body.ProfileImage)),
-        //     contentType: 'image/png'
-        // },
+    }else{
+        res.send('No fILE is posted')
+    }
+
     })
 
-	// var obj = {
+    // const user = new User({
+    //     fullName: req.body.fullName,
+    //     phoneNumber: req.body.phoneNumber,
+    //     email: req.body.emailAddress,
+    //     collegeId: req.body.collegeId,
+    //     password: req.body.password,
+    //     confirmPassword: req.body.confirmPassword,
+    //     idImage: req.body.IdCardImage,
+    //     profileImage: req.body.ProfileImage,
+    //     // idImage:{
+    //     //     // data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.body.IdCardImage)),
+    //     //     data: fs.readFileSync(`${__dirname}\\uploads\\${req.body.IdCardImage}`),
+	// 	// 	contentType: 'image/png'
+    //     // },
+    //     // profileImage:{
+    //     //     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.body.ProfileImage)),
+    //     //     contentType: 'image/png'
+    //     // },
+    // })
+
+	// User.create(user, (err, item) => {
+	// 	if (err) {
+	// 		console.log("Something is wrong....");
+	// 		console.log(err);
+	// 	}
+	// 	else {
+    //         console.log("Thank God....");
+	// 		res.redirect('/');
+	// 	}
+	// });
+
+// var obj = {
 	// 	name: req.body.name,
 	// 	desc: req.body.desc,
 	// 	img: {
@@ -141,21 +177,6 @@ app.post('/register', upload.array('image'), (req, res, next) => {
 	// 		contentType: 'image/png'
 	// 	}
 	// }
-	User.create(user, (err, item) => {
-		if (err) {
-			console.log("Something is wrong....");
-			console.log(err);
-		}
-		else {
-            console.log("Thank God....");
-            // alert("Success")
-			// item.save();
-			res.redirect('/');
-		}
-	});
-});
-
-
 // const jack = new User({
 //     Name: "Jack",
 //     Id: "S171717"
