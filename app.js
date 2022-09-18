@@ -1,5 +1,5 @@
 const express = require("express")
-const bodyParser = require("body-parser")
+// const bodyParser = require("body-parser")
 const ejs = require("ejs")
 const app = express();
 const mongoose = require("mongoose");
@@ -10,8 +10,8 @@ const multer  = require('multer')
 // const findOrCreate = require('mongoose-findorcreate');
 
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
 
 
 // app.use(bodyParser.urlencoded({
@@ -77,68 +77,49 @@ const userSchema = new mongoose.Schema({
     collegeId: String,
     password: String,
     confirmPassword: String,
-    profileImage: String,
-    idImage: String,
-    profileImage:String
-
+    idImage: String
 });
 
 const User = new mongoose.model("User", userSchema);
 
-// let storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, __dirname+'uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-const Storage = new multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads')
-      },
-    filename: (req, file, cb) => {
-        // cb(null, file.fieldname + '-' + Date.now())
-        cb(null, Date.now()+ path.extnane(file.originalname))
+//register user
+let newName;
+const storage = multer.diskStorage({
+    destination: (req, file, cb)=>{
+        cb(null, "uploads");
+    },
+    filename: (req, file, cb)=>{
+        console.log(file);
+        newName = Date.now() + path.extname(file.originalname);
+        cb(null, newName);
     }
-});
-  
-const upload = multer({ storage: Storage, limits: {fieldSize: 1024 * 1024 * 2} });
+})
 
+const upload = multer({storage: storage});
 
-// Step 8 - the POST handler for processing the uploaded file
-// app.post("/register", function(req, res){
-//     console.log("Requesttttttt..")
-//     console.log(req.body);
-// })
-app.post('/register', upload.single('idImage'), async (req, res) => {
+app.post("/register", upload.single("IdCardImage"), (req, res)=>{
 
-    // console.log(req.file)
-    console.log(req.body)
-    if(req.file){
-        console.log(req.body)
-        const user = new User({
-            fullName: req.body.fullName,
-            phoneNumber: req.body.phoneNumber,
-            email: req.body.emailAddress,
-            collegeId: req.body.collegeId,
-            password: req.body.password,
-            confirmPassword: req.body.confirmPassword,
-            idImage: req.body.IdCardImage,
-            profileImage: req.body.ProfileImage,
-            idImage:`/uploads/${req.body.IdCardImage}`
-        })
-        user.save()
-        .then(()=>console.log("Uploaded successfully..."))
-        .catch(err=>console.log("Failed...."));
-
-    }else{
-        res.send('No fILE is posted')
-    }
-
+    //creating User instance
+    const user = new User({
+        fullName: req.body.fullName,
+        phoneNumber: req.body.phoneNumber,
+        email: req.body.emailAddress,
+        collegeId: req.body.collegeId,
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword,
+        idImage: newName
+        // profileImage: req.body.ProfileImage,
+    });
+    user.save()
+    .then(()=>{
+        console.log("Uploaded successfully...");
+        res.redirect("/login")
     })
+    .catch(err=>console.log("Failed...."));
 
-    // const user = new User({
+});
+
+// const user = new User({
     //     fullName: req.body.fullName,
     //     phoneNumber: req.body.phoneNumber,
     //     email: req.body.emailAddress,
@@ -177,20 +158,3 @@ app.post('/register', upload.single('idImage'), async (req, res) => {
 	// 		contentType: 'image/png'
 	// 	}
 	// }
-// const jack = new User({
-//     Name: "Jack",
-//     Id: "S171717"
-// })
-// jack.save()
-
-// mongoose.set("useCreateIndex", true); no need anta
-// const userSchema = new mongoose.Schema({
-//     fullName: String,
-//     phoneNumber: String,
-//     email: String,
-//     collegeId: String,
-//     password: String,
-//     confirmPassword: String,
-//     // googleId: String,
-//     // secret: String
-// });
