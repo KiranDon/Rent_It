@@ -32,26 +32,26 @@
                 <div class="row gx-3">
                   <div class="col-6  mb-3">
                     <label class="form-label">Full name</label>
-                    <input class="form-control" type="text"  value="Usha Kiran">
+                    <input class="form-control" type="text"  value="<%= user.fullName %>">
                   </div> <!-- col .// -->
                   <div class="col-6  mb-3">
                     <label class="form-label">Phone Number</label>
-                    <input class="form-control" type="text"  value="9182245303">
+                    <input class="form-control" type="text"  value="<%= user.phoneNumber %>">
                   </div> <!-- col .// -->
                   <div class="col-lg-6  mb-3">
                     <label class="form-label">Email</label>
-                    <input class="form-control" type="email"  value="example@mail.com">
+                    <input class="form-control" type="email"  value="<%= user.email %>">
                   </div> <!-- col .// -->
                   <div class="col-lg-6  mb-3">
                     <label class="form-label">College Id</label>
-                    <input class="form-control" type="tel" placeholder="S170075" disabled>
+                    <input class="form-control" type="tel" placeholder="<%= user.collegeId %>" disabled>
                   </div> <!-- col .// -->
                   
                 </div> <!-- row.// -->
               </div> <!-- col.// -->
               <aside class="col-lg-4">
                 <figure class="text-lg-center">
-                  <img class="img-lg mb-3 img-avatar" src="/images/img/people/user-1.jpg" alt="User Photo" id="userImage">
+                  <img class="img-lg mb-5 img-avatar" src="/uploads/<%= user.profileImage %>" alt="User Photo" id="userImage" style="width: 200px; height: 200px">
                   <figcaption>
                     <a class="btn btn-outline-primary" href="#">
                       <i class="icons material-icons md-backup"></i> Upload
@@ -61,12 +61,16 @@
               </aside> <!-- col.// -->
             </div> <!-- row.// -->
             <br>
-            <button class="btn btn-primary" type="submit">Save changes</button>
+            <div class="row">
+              <button class="btn btn-primary" type="submit">Save changes</button>
+              
+            </div>
           </form>
-          <br>
-          <br>
-          <br>
-          <a href="logout"><button class="btn btn-primary">Log Out.</button></a>
+
+          <div class="row mt-4">
+            <a href="logout"><button class="btn btn-danger">Log Out.</button></a>
+          </div>
+          
 
       </div>
 

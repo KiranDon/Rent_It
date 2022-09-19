@@ -79,12 +79,30 @@ app.get("/myProducts", function (req, res) {
 });
 app.get("/myProfile", function (req, res) {
     console.log(req.user);
+
+    
+
   if(req.isAuthenticated()){
-      res.render("myProfile");
+    let currentUser = `${req.user._id}`.split('"')[0];
+    console.log(currentUser);
+
+    User.findOne({_id:currentUser}, function(err, user){
+        if(err){
+          console.log("Something is wrong...");
+          console.log(err)
+        }else{
+            console.log("Current user is : ");
+            console.log(user);
+          res.render("myProfile", {user});
+    
+        }
+      });
+
+    // res.render("myProfile");
+
   }else{
       res.render("login");
   }
-//   res.render("myProfile");
 });
 
 app.listen(3333, function () {
