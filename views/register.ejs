@@ -71,7 +71,7 @@
                         <div class="col-md-6 mb-4 pb-2">
 
                           <div class="form-outline">
-                            <input type="email" id="emailAddress" name="emailAddress" class="form-control form-control-lg"  required/>
+                            <input type="email" id="emailAddress" name="username" class="form-control form-control-lg"  required/>
                             <label class="form-label" for="emailAddress">Email</label>
                           </div>
                             
@@ -145,29 +145,23 @@
       </section>
     
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-      <!-- <script type="text/javascript">
+      
+      <script type="text/javascript">
         let registerButton = document.getElementById("register");
         let errorMessage = document.getElementById("errorMessage");
         function validate(){
-            let firstName = document.getElementById("fullName").value;
+            let fullName = document.getElementById("fullName").value;
             // let lastName = document.getElementById("lastName").value;
             let phoneNumber = document.getElementById("phoneNumber").value;
             let emailAddress = document.getElementById("emailAddress").value;
-            let gender = document.querySelector('.genderInput:checked').value;
+            // let gender = document.querySelector('.genderInput:checked').value;
             let password = document.getElementById("password").value;
             let confirmPassword = document.getElementById("confirmPassword").value;
 
             errorMessage.innerTex = "";
-            if(firstName.length<3){
+            if(fullName.length<3){
                 document.getElementById("errorMessage").classList.remove("hidden");
                 errorMessage.innerText = "First name should be atleast 3 characters..."
-                return false;
-            }
-            else if(lastName.length<3){
-                document.getElementById("errorMessage").classList.remove("hidden");
-                errorMessage.innerText = "\nLast name should be atleast 3 characters..."
                 return false;
             }else if(!isValidPhone(phoneNumber)){
                 document.getElementById("errorMessage").classList.remove("hidden");
@@ -175,7 +169,7 @@
                 return false;
             }else if(!isValidEmail(emailAddress)){
                 document.getElementById("errorMessage").classList.remove("hidden");
-                errorMessage.innerText = "\nInvalid email address... It must be a gmail account...";
+                errorMessage.innerText = "\nInvalid email address... It must be a gmail account, rgukt sklm or rguktn account...";
                 return false;
             }else if(!isValidPassword(password)){
                 document.getElementById("errorMessage").classList.remove("hidden");
@@ -204,17 +198,19 @@
         }
         function isValidEmail(email){
             console.log(email)
-            if (email.endsWith("@gmail.com")){
+            if (email.endsWith("@gmail.com") || email.endsWith("@rguktsklm.ac.in") || email.endsWith("@rguktn.ac.in")){
                 return true;
             }
             return false;
+            // return true;
         }
 
         registerButton.addEventListener("click", function(e){
             validate();
         });
 
-      </script> -->
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </body>
 </html>
