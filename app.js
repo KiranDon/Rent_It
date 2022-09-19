@@ -77,84 +77,57 @@ const userSchema = new mongoose.Schema({
     collegeId: String,
     password: String,
     confirmPassword: String,
-    idImage: String
+    idImage: String,
+    profileImage: String
 });
 
 const User = new mongoose.model("User", userSchema);
 
 //register user
+let randomNumber = Math.floor((Math.random() * 1000000) + 1);
 let newName;
-const storage = multer.diskStorage({
-    destination: (req, file, cb)=>{
-        cb(null, "uploads");
-    },
-    filename: (req, file, cb)=>{
-        console.log(file);
-        newName = Date.now() + path.extname(file.originalname);
-        cb(null, newName);
+let extensions = [];
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/uploads");
+  },
+  filename: function (req, file, cb) {
+    newName = file.fieldname + randomNumber + path.extname(file.originalname); 
+    extensions.push(path.extname(file.originalname));
+    cb(null, newName);
+  },
+});
+   
+var upload = multer({ storage: storage });
+   
+var uploadMultiple = upload.fields([{ name: 'IdCardImage', maxCount: 10 }, { name: 'ProfileImage', maxCount: 10 }])
+
+// upload.single("IdCardImage") middleware
+app.post("/register", uploadMultiple, (req, res)=>{
+    console.log(extensions)
+    if(req.files){
+        //creating User instance
+        const user = new User({
+            fullName: req.body.fullName,
+            phoneNumber: req.body.phoneNumber,
+            email: req.body.emailAddress,
+            collegeId: req.body.collegeId,
+            password: req.body.password,
+            confirmPassword: req.body.confirmPassword,
+            idImage: `IdCardImage${randomNumber}${extensions[0]}`,
+            profileImage: `ProfileImage${randomNumber}${extensions[1]}`,
+        });
+        user.save()
+        .then(()=>{
+            console.log("Uploaded successfully...");
+            res.redirect("/login")
+        })
+        .catch(err=>console.log("Failed...."));
+
+        console.log(req.files)
+
+    }else{
+        console.log("No files present...")
     }
-})
-
-const upload = multer({storage: storage});
-
-app.post("/register", upload.single("IdCardImage"), (req, res)=>{
-
-    //creating User instance
-    const user = new User({
-        fullName: req.body.fullName,
-        phoneNumber: req.body.phoneNumber,
-        email: req.body.emailAddress,
-        collegeId: req.body.collegeId,
-        password: req.body.password,
-        confirmPassword: req.body.confirmPassword,
-        idImage: newName
-        // profileImage: req.body.ProfileImage,
-    });
-    user.save()
-    .then(()=>{
-        console.log("Uploaded successfully...");
-        res.redirect("/login")
-    })
-    .catch(err=>console.log("Failed...."));
-
 });
 
-// const user = new User({
-    //     fullName: req.body.fullName,
-    //     phoneNumber: req.body.phoneNumber,
-    //     email: req.body.emailAddress,
-    //     collegeId: req.body.collegeId,
-    //     password: req.body.password,
-    //     confirmPassword: req.body.confirmPassword,
-    //     idImage: req.body.IdCardImage,
-    //     profileImage: req.body.ProfileImage,
-    //     // idImage:{
-    //     //     // data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.body.IdCardImage)),
-    //     //     data: fs.readFileSync(`${__dirname}\\uploads\\${req.body.IdCardImage}`),
-	// 	// 	contentType: 'image/png'
-    //     // },
-    //     // profileImage:{
-    //     //     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.body.ProfileImage)),
-    //     //     contentType: 'image/png'
-    //     // },
-    // })
-
-	// User.create(user, (err, item) => {
-	// 	if (err) {
-	// 		console.log("Something is wrong....");
-	// 		console.log(err);
-	// 	}
-	// 	else {
-    //         console.log("Thank God....");
-	// 		res.redirect('/');
-	// 	}
-	// });
-
-// var obj = {
-	// 	name: req.body.name,
-	// 	desc: req.body.desc,
-	// 	img: {
-	// 		data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-	// 		contentType: 'image/png'
-	// 	}
-	// }
