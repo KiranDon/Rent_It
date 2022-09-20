@@ -11,6 +11,7 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require("mongoose-findorcreate");
 const _ = require("lodash")
+// const nodeMailer = require("nodemailer");
 // const upload = multer({ dest: '../uploads/' })
 // const findOrCreate = require('mongoose-findorcreate');
 
@@ -237,6 +238,7 @@ const productSchema = new mongoose.Schema({
   productDescription: String,
   owner: String,
   ownerName: String,
+  ownerEmail: String,
   status: String,
   productImages: [{
     productImage1: String,
@@ -273,6 +275,7 @@ app.post("/addProduct",
     productDescription: req.body.productDescription,
     owner: currentUser,
     ownerName: `${req.user.fullName}`,
+    ownerEmail: `${req.user.email}`,
     status: "Available",
     productImages: [{
       productImage1: `productImage1${randomNumber}${extensions[0]}`,
@@ -388,8 +391,206 @@ app.post("/checkOut", function(req, res){
 })
 
 
+app.post("/order", function(req, res){
 
-// product.productPrice = +(+product.productPrice)*(+days); 
-// product.securityDeposit = product.productPrice/2;
-// product.total = (product.productPrice + product.securityDeposit);
-// p = product;
+  let borrower = req.user.email;
+  let owner = req.body.ownerEmail;
+
+
+  var nodemailer = require('nodemailer');
+  var smtp = require('nodemailer-smtp-transport');
+
+  var smtpTransport = nodemailer.createTransport(smtp({
+    service: "Gmail",
+    auth: {
+      user: "rentit.office1@gmail.com", 
+        pass: "ddrkcsicuvedcdtb",
+      // XOAuth2: {
+      //   user: "rentit.office1@gmail.com", 
+      //   pass: "ddrkcsicuvedcdtb",
+      //   clientId: "882510087164-olvupq0l3jsf30qgphr9r423168vptv6.apps.googleusercontent.com",
+      //   clientSecret: "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",
+      //   refreshToken: "1//04CfqCTCWOYM8CgYIARAAGAQSNwF-L9IrqznBnlTlH87E6r0q6x37SkT6539r-skb80us_de1GRo7zocTuiS-9-bMAUpdquwPO64"
+      // }
+    }
+
+  }));
+
+// var smtpTransport = nodemailer.createTransport("SMTP", {
+//   service: "Gmail",
+//   auth: {
+//     XOAuth2: {
+//       user: "rentit.office1@gmail.com", // Your gmail address.
+//                                             // Not @developer.gserviceaccount.com
+//       clientId: "882510087164-olvupq0l3jsf30qgphr9r423168vptv6.apps.googleusercontent.com",
+//       clientSecret: "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",
+//       refreshToken: "1//04CfqCTCWOYM8CgYIARAAGAQSNwF-L9IrqznBnlTlH87E6r0q6x37SkT6539r-skb80us_de1GRo7zocTuiS-9-bMAUpdquwPO64"
+//     }
+//   }
+// });
+
+  const mailToOwner = {
+    from: "rentit.office1@gmail.com",
+    to: owner,
+    subject: "Order confirmation - Rent It",
+    text: `
+        Dear User,
+
+        ${req.user.fullName} wants to borrow your ${req.body.productName}.
+
+        Pickup Point: ${req.body.pickup}.
+        Dropping Point: ${req.body.drop}.
+
+        Pickup Date: ${req.body.pickUpDate}.
+        Return Date: ${req.body.returnDate}.
+        Time: ${req.body.time};
+
+        Overall cost is : ${req.body.total} => ( ${req.body.productPrice} + ${req.body.securityDeposit} ).
+    `
+  };
+
+smtpTransport.sendMail(mailToOwner, function(error, response) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(response);
+  }
+  smtpTransport.close();
+});
+
+
+
+// ---------
+
+const mailToBorrower = {
+      from: "rentit.office1@gmail.com",
+      to: borrower,
+      subject: "Order confirmation - Rent It",
+      text: `
+          Dear User,
+  
+          ${req.user.fullName} will bend you ${req.body.productName}. Please meet and get that product.
+  
+          Pickup Point: ${req.body.pickup}.
+          Dropping Point: ${req.body.drop}.
+  
+          Pickup Date: ${req.body.pickUpDate}.
+          Return Date: ${req.body.returnDate}.
+          Time: ${req.body.time};
+  
+          Overall cost is : ${req.body.total} => ( ${req.body.productPrice} + ${req.body.securityDeposit} ).
+      `
+    };
+
+
+    smtpTransport.sendMail(mailToBorrower, function(error, response) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(response);
+      }
+      smtpTransport.close();
+    });
+
+    res.redirect("/")
+});
+
+
+
+// app.post("/order", function(req, res){
+//   console.log(req.body);
+
+//   // let owner = 
+//   let borrower = req.user.email;
+//   let owner = req.body.ownerEmail;
+//   console.log(borrower)
+
+
+//   const mailToOwner = {
+//     from: "rentit.office1@gmail.com",
+//     to: owner,
+//     subject: "Order confirmation - Rent It",
+//     text: `
+//         Dear User,
+
+//         ${req.user.fullName} wants to borrow your ${req.body.productName}.
+
+//         Pickup Point: ${req.body.pickup}.
+//         Dropping Point: ${req.body.drop}.
+
+//         Pickup Date: ${req.body.pickUpDate}.
+//         Return Date: ${req.body.returnDate}.
+//         Time: ${req.body.time};
+
+//         Overall cost is : ${req.body.total} => ( ${req.body.productPrice} + ${req.body.securityDeposit} ).
+//     `
+//   };
+
+//   nodeMailer.createTransport({
+//     host: "smtp.gmail.com",
+//     port: 587,
+//     ignoreTLS: false,
+//     secure: false,
+//     service: "gmail",
+//     auth: {
+//       user: "rentit.office1@gmail.com",
+//       pass: "flucrnbmcyzivkxc"
+//     },
+    
+//   })
+//   .sendMail(mailToOwner, (err)=>{
+//     if(err){
+//       return console.log("Error occured: ", err);
+//     }else{
+//       return console.log("Email sent to owner... ");
+//     }
+//   })
+
+
+//   const mailToBorrower = {
+//     from: "rentit.office1@gmail.com",
+//     to: borrower,
+//     subject: "Order confirmation - Rent It",
+//     text: `
+//         Dear User,
+
+//         ${req.user.fullName} will bend you ${req.body.productName}. Please meet and get that product.
+
+//         Pickup Point: ${req.body.pickup}.
+//         Dropping Point: ${req.body.drop}.
+
+//         Pickup Date: ${req.body.pickUpDate}.
+//         Return Date: ${req.body.returnDate}.
+//         Time: ${req.body.time};
+
+//         Overall cost is : ${req.body.total} => ( ${req.body.productPrice} + ${req.body.securityDeposit} ).
+//     `
+//   };
+
+//   nodeMailer.createTransport({
+//     host: "smtp.gmail.com",
+//     port: 587,
+//     ignoreTLS: false,
+//     secure: false,
+//     service: "gmail",
+//     auth: {
+//       user: "rentit.office1@gmail.com",
+//       pass: "flucrnbmcyzivkxc"
+//     },
+//   })
+//   .sendMail(mailToBorrower, (err)=>{
+//     if(err){
+//       return console.log("Error occured: ", err);
+//     }else{
+//       return console.log("Email sent to borrower... ");
+//     }
+//   })
+
+// })
+
+// pass word: flucrnbmcyzivkxc
+
+
+// client id : 882510087164-olvupq0l3jsf30qgphr9r423168vptv6.apps.googleusercontent.com
+// client secret: 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
+// refresh token: 1//04CfqCTCWOYM8CgYIARAAGAQSNwF-L9IrqznBnlTlH87E6r0q6x37SkT6539r-skb80us_de1GRo7zocTuiS-9-bMAUpdquwPO64
