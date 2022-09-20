@@ -38,6 +38,7 @@ a{
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     margin: 20px 30px 20px 60px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .productBoxes .product .topBox img{
     width: 100%;
@@ -45,6 +46,7 @@ a{
     border-radius: 10px;
     transition: all 0.2s;
     cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .productBoxes .product .topBox img:hover{
     transform: scale(1.03);

@@ -38,15 +38,7 @@ app.use(passport.session());
 app.get("/", function (req, res) {
   res.render("index");
 });
-app.get("/allProducts", function (req, res) {
-  // res.render("allProducts");
-  console.log(req.user);
-  if (req.isAuthenticated()) {
-    res.render("allProducts");
-  } else {
-    res.render("login");
-  }
-});
+
 app.get("/about", function (req, res) {
   res.render("about");
 });
@@ -66,7 +58,7 @@ app.get("/checkOut", function (req, res) {
   res.render("checkOut");
 });
 app.get("/addProduct", function (req, res) {
-    console.log(req.user);
+    console.log("user: ", req.user);
   if (req.isAuthenticated()) {
     res.render("addProduct");
   } else {
@@ -150,6 +142,8 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
+
+
 //register user
 let randomNumber = Math.floor(Math.random() * 1000000 + 1);
 let newName;
@@ -195,6 +189,7 @@ app.post(
       }
       next();
     });
+    extensions = [];
   },
   passport.authenticate("local", {
     successRedirect: "/allProducts",
@@ -231,4 +226,92 @@ app.get("/logout", function (req, res) {
     console.log("Logged out....");
     req.logout();
     res.redirect("/");
+});
+
+//add product to database
+const productSchema = new mongoose.Schema({
+  productName: String,
+  productCategory: String,
+  productPrice: String,
+  productDescription: String,
+  owner: String,
+  ownerName: String,
+  status: String,
+  productImages: [{
+    productImage1: String,
+    productImage2: String,
+    productImage3: String,
+    productImage4: String,
+  }]
+});
+const Product = new mongoose.model("Product", productSchema);
+
+
+var uploadMultipleProducts = upload.fields([
+  { name: "productImage1", maxCount: 10 },
+  { name: "productImage2", maxCount: 10 },
+  { name: "productImage3", maxCount: 10 },
+  { name: "productImage4", maxCount: 10 }
+]);
+
+app.post("/addProduct",
+  uploadMultipleProducts,
+  function(req, res){
+    console.log("request: ", req);
+    console.log("request body: ", req.body);
+    console.log("request files: ", req.files);
+
+  let currentUser = `${req.user._id}`.split('"')[0];
+  console.log(currentUser);
+  // randomNumber = Math.floor(Math.random() * 1000000 + 1)
+
+  const newProduct = new Product({
+    productName: req.body.productName,
+    productCategory: req.body.productCategory,
+    productPrice: req.body.productPrice,
+    productDescription: req.body.productDescription,
+    owner: currentUser,
+    ownerName: `${req.user.fullName}`,
+    status: "Available",
+    productImages: [{
+      productImage1: `productImage1${randomNumber}${extensions[0]}`,
+      productImage2: `productImage2${randomNumber}${extensions[1]}`,
+      productImage3: `productImage3${randomNumber}${extensions[2]}`,
+      productImage4: `productImage4${randomNumber}${extensions[3]}`
+    }]
+  });
+
+  newProduct.save(function(err){
+    if(!err){
+      console.log("Product addedd successfully...");
+      res.redirect("/allProducts");
+    }else{
+      console.log("Failed to add product to DB...");
+      console.log(err);
+    }
+  });
+
+
+});
+
+app.get("/allProducts", function (req, res) {
+  // res.render("allProducts");
+  console.log(req.user);
+  if (req.isAuthenticated()) {
+
+    let products = [];
+    Product.find({}, function(err, allProducts){
+      if(err){
+        console.log(err);
+      }else{
+        products = allProducts;
+        res.render("allProducts", {products: products});
+      }
+  
+    });
+    console.log(products)
+
+  } else {
+    res.render("login");
+  }
 });
