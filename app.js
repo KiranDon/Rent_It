@@ -190,6 +190,7 @@ app.post(
       next();
     });
     extensions = [];
+    randomNumber = Math.floor(Math.random() * 1000000 + 1);
   },
   passport.authenticate("local", {
     successRedirect: "/allProducts",
@@ -223,6 +224,7 @@ app.post("/login", function (req, res) {
 
 //logout user
 app.get("/logout", function (req, res) {
+    randomNumber = Math.floor(Math.random() * 1000000 + 1);
     console.log("Logged out....");
     req.logout();
     res.redirect("/");
@@ -283,6 +285,8 @@ app.post("/addProduct",
 
   newProduct.save(function(err){
     if(!err){
+      randomNumber = Math.floor(Math.random() * 1000000 + 1);
+      extensions = [];
       console.log("Product addedd successfully...");
       res.redirect("/allProducts");
     }else{
