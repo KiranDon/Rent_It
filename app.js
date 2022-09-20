@@ -10,6 +10,7 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require("mongoose-findorcreate");
+const _ = require("lodash")
 // const upload = multer({ dest: '../uploads/' })
 // const findOrCreate = require('mongoose-findorcreate');
 
@@ -51,9 +52,7 @@ app.get("/login", function (req, res) {
 app.get("/register", function (req, res) {
   res.render("register");
 });
-app.get("/product", function (req, res) {
-  res.render("product");
-});
+
 app.get("/checkOut", function (req, res) {
   res.render("checkOut");
 });
@@ -319,3 +318,78 @@ app.get("/allProducts", function (req, res) {
     res.render("login");
   }
 });
+
+
+app.get("/product/:productId", function (req, res) {
+  // res.render("product");
+  
+  if(req.isAuthenticated()){
+    let requestedProductId = req.params.productId;
+    console.log(requestedProductId);
+
+    Product.findOne({_id:requestedProductId}, function(err, product){
+        if(err){
+          console.log("Something is wrong...");
+          console.log(err)
+        }else{
+            console.log("Selected product is : ");
+            console.log(product);
+          res.render("product", {product});
+    
+        }
+      });
+
+  }else{
+      res.render("login");
+  }
+});
+
+app.post("/checkOut", function(req, res){
+  if(req.isAuthenticated()){
+
+    let days = req.body.days;
+    let currentProduct = req.body.currentProduct;
+    console.log(days, currentProduct);
+
+    // let currentUser = `${req.user._id}`.split('"')[0];
+    // console.log(currentUser);
+
+    // var u = "";
+
+    // User.findOne({_id:currentUser}, function(err, user){
+    //     if(err){
+    //       console.log("Something is wrong...");
+    //       console.log(err)
+    //     }else{
+    //         console.log("Current user is : ");
+    //         console.log(user);
+    //         u = user;
+    //     }
+    // });
+
+    var p = "";
+    Product.findOne({_id:currentProduct}, function(err, product){
+      if(err){
+        console.log("Something is wrong...");
+        console.log(err)
+      }else{
+          console.log("Selected product is : ");
+          console.log(product);
+          product.productPrice = +(+product.productPrice)*(+days); 
+          product.securityDeposit = +(product.productPrice/2);
+          product.total = (+product.productPrice + +product.securityDeposit);
+          res.render("checkOut", {product});
+      }
+    });
+
+  }else{
+    res.render("login");
+  }
+})
+
+
+
+// product.productPrice = +(+product.productPrice)*(+days); 
+// product.securityDeposit = product.productPrice/2;
+// product.total = (product.productPrice + product.securityDeposit);
+// p = product;

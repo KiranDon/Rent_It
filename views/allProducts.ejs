@@ -28,7 +28,7 @@
             <% products.forEach((product)=>{ %>
                 <div class="product">
                     <div class="topBox">
-                        <a href="product"><img src="/uploads/<%= product.productImages[0].productImage1 %>" alt=""></a>
+                        <a href="product/<%= product._id %>"><img src="/uploads/<%= product.productImages[0].productImage1 %>" alt=""></a>
                     </div>
                     <div class="bottomBox">
                         <div class="left">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="right">
                             <div class="cartButton">
-                                <a href="product"><i class="fa-solid fa-cart-plus"></i></a>
+                                <a href="product/<%= product._id %>"><i class="fa-solid fa-cart-plus"></i></a>
                             </div>
                         </div>
                     </div>

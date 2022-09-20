@@ -21,10 +21,11 @@
         <div class="right">
             <ul class="nav">
                 <li class="navItem"><a href="/">Home</a></li>
-                <li class="navItem"><a href="allProducts">Products</a></li>
-                <li class="navItem"><a href="about">About</a></li>
-                <li class="navItem"><a href="contact">Contact</a></li>
-                <li class="navItem"><a href="addProduct">Add Product</a></li>
+                <li class="navItem"><a href="/allProducts">Products</a></li>
+                <li class="navItem"><a href="/about">About</a></li>
+                <li class="navItem"><a href="/contact">Contact</a></li>
+                <li class="navItem"><a href="/addProduct">Add Product</a></li>
+                <li class="navItem"><a href="/myProfile">My Account</a></li>
                 <!-- <li class="navItem"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li> -->
 
             </ul>
@@ -37,42 +38,50 @@
     <div class="product">
         <div class="left">
             <div class="mainImage">
-                <img src="/images/img/products/f2.jpg" alt="product image">
+                <img src="/uploads/<%= product.productImages[0].productImage1 %>" alt="product image">
             </div>
             <div class="subImages">
                 <div class="subImage">
-                    <img src="/images/img/products/f6.jpg" alt="">
+                    <img src="/uploads/<%= product.productImages[0].productImage1 %>" alt="">
                 </div>
                 <div class="subImage">
-                    <img src="/images/img/products/f1.jpg" alt="">
+                    <img src="/uploads/<%= product.productImages[0].productImage2 %>" alt="">
                 </div>
                 <div class="subImage">
-                    <img src="/images/img/products/f4.jpg" alt="">
+                    <img src="/uploads/<%= product.productImages[0].productImage3 %>" alt="">
                 </div>
                 <div class="subImage">
-                    <img src="/images/img/products/f2.jpg" alt="">
+                    <img src="/uploads/<%= product.productImages[0].productImage4 %>" alt="">
                 </div>
             </div>
         </div>
 
         <div class="right">
-            <p class="productName">Men's Half Sleeve Shirt</p>
-            <p class="productPrice">₹783.00</p>
-            <select name="days" id="days" class="select">
-                <option value="" default>Number of days?</option>
-                <option value="1">1 Day</option>
-                <option value="2">2 Days</option>
-                <option value="3">3 Days</option>
-                <option value="4">4 Days</option>
-                <option value="5">5 Days</option>
-                <option value="6">6 Days</option>
-                <option value="7">7 Days</option>
-            </select>
-            <a href="checkOut"><button class="addToCart">Rent It!</button></a>
+            <p class="productName"><%= product.productName %></p>
+            <p class="productPrice">₹<%= product.productPrice %> Per day.</p>
+
+            <form method="post" action="/checkOut">
+              <select name="days" id="days" class="select">
+                  <option value="" default>Number of days?</option>
+                  <option value="1">1 Day</option>
+                  <option value="2">2 Days</option>
+                  <option value="3">3 Days</option>
+                  <option value="4">4 Days</option>
+                  <option value="5">5 Days</option>
+                  <option value="6">6 Days</option>
+                  <option value="7">7 Days</option>
+              </select>
+              <!-- <a href="/checkOut/<%= product._id %>"><button class="addToCart" type="submit">Rent It!</button></a> -->
+              <!-- <button class="addToCart" type="submit">Rent It!</button> -->
+              <input type="text" value="<%= product._id %>" name="currentProduct" hidden>
+              <input type="submit" value="Rent It!" class="addToCart">
+
+            </form>
+
             
 
             <p class="descriptionTitle">Product Details</p>
-            <p class="descriptionText">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique laudantium quis itaque aut veritatis eius quo sequi ab necessitatibus vitae, quae labore, iusto nostrum vel saepe, ipsum consequatur amet ipsam. Lorem ipsum dolor sit, amet consectetur adipisic ing elit. Odit, quod perferendis. Magni eius possimus numquam culpa esse ex non eum nam. Ullam, debitis reprehenderit ut quaerat esse eligendi accusamus magni.</p>
+            <p class="descriptionText"><%= product.productDescription %></p>
         </div>
 
     </div>

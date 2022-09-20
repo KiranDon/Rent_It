@@ -35,10 +35,10 @@
                 <ul class="list-group mb-3 sticky-top">
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0">Product name</h6>
+                            <h6 class="my-0"><%= product.productName %></h6>
                             <small class="text-muted">Brief description</small>
                         </div>
-                        <span class="text-muted">₹100</span>
+                        <span class="text-muted">₹ <%= product.productPrice %></span>
                     </li>
                     
                     <li class="list-group-item d-flex justify-content-between bg-light">
@@ -46,11 +46,11 @@
                             <h6 class="my-0">Security Deposit</h6>
                             <small>Will be paid back after safe return.</small>
                         </div>
-                        <span class="text-success">₹50</span>
+                        <span class="text-success">₹ <%= product.securityDeposit %></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total (USD)</span>
-                        <strong>₹150</strong>
+                        <strong>₹ <%= product.total %></strong>
                     </li>
                 </ul>
                 <!-- <form class="card p-2">
@@ -67,14 +67,14 @@
                 <form class="needs-validation" novalidate="">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="firstName">First name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-                            <div class="invalid-feedback"> Valid first name is required. </div>
+                            <label for="firstName">Full name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Enter full name" value="" required="">
+                            <div class="invalid-feedback"> Valid full name is required. </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="lastName">Last name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-                            <div class="invalid-feedback"> Valid last name is required. </div>
+                            <label for="lastName">Phone number</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Enter phone number" value="" required="">
+                            <div class="invalid-feedback"> Valid phone number is required. </div>
                         </div>
                     </div>
                     <!-- <div class="mb-3">
