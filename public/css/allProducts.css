@@ -34,11 +34,13 @@ a{
     width: 25%;
     height: auto;
     padding: 10px;
-    
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     margin: 20px 30px 20px 60px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.opacity{
+    opacity: 0.5;
 }
 .productBoxes .product .topBox img{
     width: 100%;
@@ -93,4 +95,7 @@ a{
 .product .bottomBox .right .cartButton i{
     font-size: 25px;
     color: #088178;
+}
+.unavailable{
+    color: red;
 }

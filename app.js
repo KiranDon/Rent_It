@@ -239,6 +239,7 @@ const productSchema = new mongoose.Schema({
   owner: String,
   ownerName: String,
   ownerEmail: String,
+  ownerPhone: String,
   status: String,
   productImages: [{
     productImage1: String,
@@ -276,6 +277,7 @@ app.post("/addProduct",
     owner: currentUser,
     ownerName: `${req.user.fullName}`,
     ownerEmail: `${req.user.email}`,
+    ownerPhone: `${req.user.phoneNumber}`,
     status: "Available",
     productImages: [{
       productImage1: `productImage1${randomNumber}${extensions[0]}`,
@@ -434,18 +436,33 @@ app.post("/order", function(req, res){
     to: owner,
     subject: "Order confirmation - Rent It",
     text: `
-        Dear User,
+        Dear ${req.body.ownerName},
 
         ${req.user.fullName} wants to borrow your ${req.body.productName}.
+        
+        Here are the details for further comminication: 
+        -----------------------------------------------
 
         Pickup Point: ${req.body.pickup}.
         Dropping Point: ${req.body.drop}.
-
         Pickup Date: ${req.body.pickUpDate}.
         Return Date: ${req.body.returnDate}.
-        Time: ${req.body.time};
+        Meeting Time: ${req.body.time};
 
-        Overall cost is : ${req.body.total} => ( ${req.body.productPrice} + ${req.body.securityDeposit} ).
+        Overall cost is : ${req.body.total} Rupees. (Actual cost: ${req.body.productPrice} + Security Deposit: ${req.body.securityDeposit} ).
+
+        Borrower Details:
+        -----------------
+
+        Borrower Name: ${req.user.fullName}.
+        Borrower Phone Number: ${req.user.phoneNumber}.
+        Borrower Email: ${req.user.email}.
+
+
+        (Dont forget to update status of the product after receiving).
+
+        Thank you for using our website. 
+        Team RentIt.
     `
   };
 
@@ -467,18 +484,27 @@ const mailToBorrower = {
       to: borrower,
       subject: "Order confirmation - Rent It",
       text: `
-          Dear User,
+        Dear ${req.user.fullName},
   
-          ${req.user.fullName} will bend you ${req.body.productName}. Please meet and get that product.
+        ${req.body.ownerName} will lend you ${req.body.productName}. Please meet them and get that product.
   
-          Pickup Point: ${req.body.pickup}.
-          Dropping Point: ${req.body.drop}.
-  
-          Pickup Date: ${req.body.pickUpDate}.
-          Return Date: ${req.body.returnDate}.
-          Time: ${req.body.time};
-  
-          Overall cost is : ${req.body.total} => ( ${req.body.productPrice} + ${req.body.securityDeposit} ).
+        Here are the details for further comminication: 
+        -----------------------------------------------
+
+        Pickup Point: ${req.body.pickup}.
+        Dropping Point: ${req.body.drop}.
+        Pickup Date: ${req.body.pickUpDate}.
+        Return Date: ${req.body.returnDate}.
+        Meeting Time: ${req.body.time};
+
+        Overall cost is : ${req.body.total} Rupees. (Actual cost: ${req.body.productPrice} + Security Deposit: ${req.body.securityDeposit} ).
+
+        Owner Details:
+        -----------------
+
+        Owner Name: ${req.body.ownerName}.
+        Owner Phone Number: ${req.body.ownerPhone}.
+        Owner Email: ${req.body.ownerEmail}.
       `
     };
 
@@ -492,7 +518,20 @@ const mailToBorrower = {
       smtpTransport.close();
     });
 
-    res.redirect("/")
+
+    //update current product staus to "Not Available"
+    let currentProduct = req.body.currentProduct;
+    Product.updateOne({_id: currentProduct}, {$set:{status:"Not Available"}}, function(err){
+      if(!err){
+        console.log('Product status updates to "Not Available".');
+      }else{
+        console.log('Failed to update status');
+
+      }
+    })
+
+
+    res.redirect("allProducts")
 });
 
 
