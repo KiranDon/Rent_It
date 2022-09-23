@@ -378,21 +378,6 @@ app.post("/checkOut", function(req, res){
     let currentProduct = req.body.currentProduct;
     console.log(days, currentProduct);
 
-    // let currentUser = `${req.user._id}`.split('"')[0];
-    // console.log(currentUser);
-
-    // var u = "";
-
-    // User.findOne({_id:currentUser}, function(err, user){
-    //     if(err){
-    //       console.log("Something is wrong...");
-    //       console.log(err)
-    //     }else{
-    //         console.log("Current user is : ");
-    //         console.log(user);
-    //         u = user;
-    //     }
-    // });
 
     var p = "";
     Product.findOne({_id:currentProduct}, function(err, product){
@@ -440,18 +425,6 @@ app.post("/order", function(req, res){
 
   }));
 
-// var smtpTransport = nodemailer.createTransport("SMTP", {
-//   service: "Gmail",
-//   auth: {
-//     XOAuth2: {
-//       user: "rentit.office1@gmail.com", // Your gmail address.
-//                                             // Not @developer.gserviceaccount.com
-//       clientId: "882510087164-olvupq0l3jsf30qgphr9r423168vptv6.apps.googleusercontent.com",
-//       clientSecret: "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",
-//       refreshToken: "1//04CfqCTCWOYM8CgYIARAAGAQSNwF-L9IrqznBnlTlH87E6r0q6x37SkT6539r-skb80us_de1GRo7zocTuiS-9-bMAUpdquwPO64"
-//     }
-//   }
-// });
 
   const mailToOwner = {
     from: "rentit.office1@gmail.com",
