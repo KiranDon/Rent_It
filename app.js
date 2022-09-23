@@ -67,8 +67,30 @@ app.get("/addProduct", function (req, res) {
   // res.render("addProduct");
 });
 app.get("/myProducts", function (req, res) {
-  res.render("myProducts");
+
+
+  if (req.isAuthenticated()) {
+
+    console.log(req)
+  
+    let user = req.user._id;
+  
+    let products = [];
+    Product.find({}, function(err, allProducts){
+      if(err){
+        console.log(err);
+      }else{
+        products = allProducts;
+        res.render("myProducts", {products: products, currentUser: user, products});
+      }
+    });
+
+
+  }
+
 });
+
+
 app.get("/myProfile", function (req, res) {
     console.log(req.user);
 
@@ -531,105 +553,35 @@ const mailToBorrower = {
     })
 
 
-    res.redirect("allProducts")
+    res.redirect("allProducts");
 });
 
+// deleting a product
+app.post("/deleteProduct", function(req, res){
+  let product = req.body.currentProduct;
+  
+  Product.deleteOne({_id: product}, function(err){
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/myProducts");
+    }
+  });
 
+});
 
-// app.post("/order", function(req, res){
-//   console.log(req.body);
+// updating product status (done by owner)
 
-//   // let owner = 
-//   let borrower = req.user.email;
-//   let owner = req.body.ownerEmail;
-//   console.log(borrower)
+app.post("/editProduct", function(req, res){
+  let product = req.body.currentProduct;
+  let status = req.body.status;
 
-
-//   const mailToOwner = {
-//     from: "rentit.office1@gmail.com",
-//     to: owner,
-//     subject: "Order confirmation - Rent It",
-//     text: `
-//         Dear User,
-
-//         ${req.user.fullName} wants to borrow your ${req.body.productName}.
-
-//         Pickup Point: ${req.body.pickup}.
-//         Dropping Point: ${req.body.drop}.
-
-//         Pickup Date: ${req.body.pickUpDate}.
-//         Return Date: ${req.body.returnDate}.
-//         Time: ${req.body.time};
-
-//         Overall cost is : ${req.body.total} => ( ${req.body.productPrice} + ${req.body.securityDeposit} ).
-//     `
-//   };
-
-//   nodeMailer.createTransport({
-//     host: "smtp.gmail.com",
-//     port: 587,
-//     ignoreTLS: false,
-//     secure: false,
-//     service: "gmail",
-//     auth: {
-//       user: "rentit.office1@gmail.com",
-//       pass: "flucrnbmcyzivkxc"
-//     },
-    
-//   })
-//   .sendMail(mailToOwner, (err)=>{
-//     if(err){
-//       return console.log("Error occured: ", err);
-//     }else{
-//       return console.log("Email sent to owner... ");
-//     }
-//   })
-
-
-//   const mailToBorrower = {
-//     from: "rentit.office1@gmail.com",
-//     to: borrower,
-//     subject: "Order confirmation - Rent It",
-//     text: `
-//         Dear User,
-
-//         ${req.user.fullName} will bend you ${req.body.productName}. Please meet and get that product.
-
-//         Pickup Point: ${req.body.pickup}.
-//         Dropping Point: ${req.body.drop}.
-
-//         Pickup Date: ${req.body.pickUpDate}.
-//         Return Date: ${req.body.returnDate}.
-//         Time: ${req.body.time};
-
-//         Overall cost is : ${req.body.total} => ( ${req.body.productPrice} + ${req.body.securityDeposit} ).
-//     `
-//   };
-
-//   nodeMailer.createTransport({
-//     host: "smtp.gmail.com",
-//     port: 587,
-//     ignoreTLS: false,
-//     secure: false,
-//     service: "gmail",
-//     auth: {
-//       user: "rentit.office1@gmail.com",
-//       pass: "flucrnbmcyzivkxc"
-//     },
-//   })
-//   .sendMail(mailToBorrower, (err)=>{
-//     if(err){
-//       return console.log("Error occured: ", err);
-//     }else{
-//       return console.log("Email sent to borrower... ");
-//     }
-//   })
-
-// })
-
-// pass word: flucrnbmcyzivkxc
-
-
-// client id : 882510087164-olvupq0l3jsf30qgphr9r423168vptv6.apps.googleusercontent.com
-// client secret: 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
-// refresh token: 1//04CfqCTCWOYM8CgYIARAAGAQSNwF-L9IrqznBnlTlH87E6r0q6x37SkT6539r-skb80us_de1GRo7zocTuiS-9-bMAUpdquwPO64
+  Product.updateOne({_id: product}, {$set:{status:status}}, function(err){
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/myProducts");
+    }
+  })
+  
+})
