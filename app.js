@@ -328,6 +328,7 @@ app.get("/allProducts", function (req, res) {
   // res.render("allProducts");
   console.log(req.user);
   if (req.isAuthenticated()) {
+    let user = req.user._id;
 
     let products = [];
     Product.find({}, function(err, allProducts){
@@ -335,7 +336,7 @@ app.get("/allProducts", function (req, res) {
         console.log(err);
       }else{
         products = allProducts;
-        res.render("allProducts", {products: products});
+        res.render("allProducts", {products: products, currentUser: user});
       }
   
     });
