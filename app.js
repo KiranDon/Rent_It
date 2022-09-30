@@ -414,14 +414,7 @@ app.post("/order", function(req, res){
     service: "Gmail",
     auth: {
       user: "rentit.office1@gmail.com", 
-        pass: "ddrkcsicuvedcdtb",
-      // XOAuth2: {
-      //   user: "rentit.office1@gmail.com", 
-      //   pass: "ddrkcsicuvedcdtb",
-      //   clientId: "882510087164-olvupq0l3jsf30qgphr9r423168vptv6.apps.googleusercontent.com",
-      //   clientSecret: "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",
-      //   refreshToken: "1//04CfqCTCWOYM8CgYIARAAGAQSNwF-L9IrqznBnlTlH87E6r0q6x37SkT6539r-skb80us_de1GRo7zocTuiS-9-bMAUpdquwPO64"
-      // }
+        pass: "your gmail app password",
     }
 
   }));
